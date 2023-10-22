@@ -5,17 +5,28 @@ import { PokemonPaginateResponse, Result, SimplePokemon } from "../interfaces/po
 export const usePokemonPaginate = () => {
    const url=`https://pokeapi.co/api/v2/pokemon?limit=40`;
 
+   const [isLoading, setisLoading] = useState<boolean>(true);
    const [simplePokemonList, setSimplePokemonList] = useState<SimplePokemon[]>([]);
    const nextPageUrl = useRef(`https://pokeapi.co/api/v2/pokemon?limit=40`);
 
    const loadPokemons=async()=>{
-        const {data}=await pokemonApi.get<PokemonPaginateResponse>(nextPageUrl.current);
-        nextPageUrl.current=data.next;
-        mapPokemonList(data.results)
-       };
+    setisLoading(true);
+    const {data}=await pokemonApi.get<PokemonPaginateResponse>(nextPageUrl.current);
+    nextPageUrl.current=data.next;
+    mapPokemonList(data.results)
+};
 
-   const mapPokemonList=(pokemonList:Result[])=>{
-       pokemonList.forEach(poke=>console.log(poke.name));
+const mapPokemonList=(pokemonList:Result[])=>{
+    const newPokemonList:SimplePokemon[]=pokemonList.map(({name,url})=>{
+        const urlParts=url.split('/');
+        const id=urlParts[urlParts.length-2];//para obtener el id en la penultima posicion
+        const picture=`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+        
+            return{id,name,picture
+            }
+        });     
+        setSimplePokemonList([...simplePokemonList,...newPokemonList])
+        setisLoading(false);
    }
    useEffect(() => {
 
@@ -24,6 +35,7 @@ export const usePokemonPaginate = () => {
    }, [])
 
    return{
+    isLoading,
     simplePokemonList,
    }
    

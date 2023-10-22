@@ -8,7 +8,7 @@ import { usePokemonPaginate } from '../hooks/usePokemonPaginate';
 
 export const HomeScreen = () => {
  const {top}=useSafeAreaInsets();
- usePokemonPaginate();
+ const {isLoading,simplePokemonList}=usePokemonPaginate();
   return (
     <>
         <Image
