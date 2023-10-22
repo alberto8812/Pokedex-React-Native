@@ -37,6 +37,7 @@ const mapPokemonList=(pokemonList:Result[])=>{
    return{
     isLoading,
     simplePokemonList,
+    loadPokemons,
    }
    
 }
