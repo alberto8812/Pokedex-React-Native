@@ -1,27 +1,33 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View,Image } from 'react-native'
 import { SimplePokemon } from '../interfaces/pokemonInterfaces'
 import { FadeInImage } from './FadeInImage'
 import { getColors } from 'react-native-image-colors'
+import { useNavigation } from '@react-navigation/native'
+
 
 const windowWidth=Dimensions.get('window').width;
-interface Props{
+
+interface Props {
     pokemon:SimplePokemon
 }
 
-export const PokemonCard:FC <Props>= ({pokemon}) => {
+export const PokemonCard:FC <Props>= ({pokemon,}) => {
     const [bgColor, setbgColor] = useState('grey');
+    const navigation= useNavigation<any>();
 
     useEffect(() => {
         const url=pokemon.picture;
       
     //     //IOS backGround
     //     //android dominant
+   
             const fetchColors = async () => {
                 const result = await getColors(url, {
                     fallback:'#808080',
     
                 })
+           
                 switch (result.platform) {
                     case 'android':
                         setbgColor(result.dominant)
@@ -35,11 +41,13 @@ export const PokemonCard:FC <Props>= ({pokemon}) => {
             }
             fetchColors();
 
+
     }, [])
     
   return (
     <TouchableOpacity
      activeOpacity={0.9}
+     onPress={()=>navigation.navigate('PokemonScreen',{simplePokemon:pokemon,color:bgColor})}
     >
         <View  style={{...stylesCard.CardComtainer,width:windowWidth*0.4,backgroundColor:bgColor}}>
             <View>
