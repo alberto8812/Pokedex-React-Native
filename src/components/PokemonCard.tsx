@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View,Image } from 'react-native'
 import { SimplePokemon } from '../interfaces/pokemonInterfaces'
 import { FadeInImage } from './FadeInImage'
-
+import { getColors } from 'react-native-image-colors'
 
 const windowWidth=Dimensions.get('window').width;
 interface Props{
@@ -10,11 +10,38 @@ interface Props{
 }
 
 export const PokemonCard:FC <Props>= ({pokemon}) => {
+    const [bgColor, setbgColor] = useState('grey');
+
+    useEffect(() => {
+        const url=pokemon.picture;
+      
+    //     //IOS backGround
+    //     //android dominant
+            const fetchColors = async () => {
+                const result = await getColors(url, {
+                    fallback:'#808080',
+    
+                })
+                switch (result.platform) {
+                    case 'android':
+                        setbgColor(result.dominant)
+                        break;
+                        case 'ios':
+                        setbgColor(result.background)
+                        break;
+                    default:
+                     throw new Error('Unexpected platform')
+                 }
+            }
+            fetchColors();
+
+    }, [])
+    
   return (
     <TouchableOpacity
      activeOpacity={0.9}
     >
-        <View  style={{...stylesCard.CardComtainer,width:windowWidth*0.4}}>
+        <View  style={{...stylesCard.CardComtainer,width:windowWidth*0.4,backgroundColor:bgColor}}>
             <View>
                 <Text style={stylesCard.name}>{pokemon.name}{'\n#' +pokemon.id}</Text>
             </View>
@@ -39,7 +66,6 @@ export const PokemonCard:FC <Props>= ({pokemon}) => {
 const stylesCard=StyleSheet.create({
     CardComtainer:{
         marginHorizontal:20,
-        backgroundColor:'red',
         height:120,
         width:160,
         marginBottom:25,
