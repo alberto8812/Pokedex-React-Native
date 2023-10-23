@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { FadeInImage } from '../components/FadeInImage'
 import { usePokemon } from '../hooks/usePokemon'
+import { PokemonDetail } from '../components/PokemonDetail'
 
 
 
@@ -55,11 +56,16 @@ export const PokemonScreen:FC <Props> = ({navigation,route}) => {
             style={{...stylesDetail.pokeminImage}}
           />              
       </View>
-      <View style={stylesDetail.loadingActivity}>
+     
         {
-          isloading ?<ActivityIndicator size={50} color={color}/>:''
+          isloading 
+          ? (<View style={stylesDetail.loadingActivity}>
+            <ActivityIndicator size={50} color={color}/>
+            </View>)
+            :
+           ( <PokemonDetail pokemon={pokemon}/>)
         }
-      </View>
+
     </View>
 
   )
@@ -67,11 +73,11 @@ export const PokemonScreen:FC <Props> = ({navigation,route}) => {
 
 const stylesDetail=StyleSheet.create({
   headerContainer:{
-    height:370,
-    zIndex:999,
-    borderBottomRightRadius:1000,
-    borderBottomLeftRadius:1000,
-    alignItems:'center'
+    height: 370,
+    zIndex: 999,
+    alignItems: 'center',
+    borderBottomRightRadius: 1000,
+    borderBottomLeftRadius: 1000,
   },
   backButton:{
     position:'absolute',
@@ -88,7 +94,8 @@ const stylesDetail=StyleSheet.create({
     width:250,
     height:250,
     bottom:-20,
-    opacity:0.7
+    opacity:0.7,
+
   },
   pokeminImage:{
     width:250,
@@ -99,6 +106,7 @@ const stylesDetail=StyleSheet.create({
   loadingActivity:{
     flex:1,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+
   }
 });

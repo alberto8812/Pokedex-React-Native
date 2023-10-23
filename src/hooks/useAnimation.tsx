@@ -5,6 +5,8 @@ export const useAnimation = () => {
      
     const opacity=useRef(new Animated.Value(0)).current;
     const position=useRef(new Animated.Value(0)).current;
+    const width=useRef(new Animated.Value(0)).current;
+
 
     const fadeIn=(duration:number=300)=>{
         Animated.timing(
@@ -41,13 +43,28 @@ export const useAnimation = () => {
         ).start()
 
     }
+    const startMovingWidth=(initialwidth:number,duration:number=300)=>{
+        width.setValue(initialwidth);
+
+        Animated.timing(
+            width,
+            {
+                toValue:0,
+                duration,
+                useNativeDriver:true
+            }
+        ).start()
+
+    }
 
 
   return {
     opacity,
     position,
+    width,
     fadeIn,
     fadeOut,
-    startMovingPosition
+    startMovingPosition,
+    startMovingWidth
   }
 }
