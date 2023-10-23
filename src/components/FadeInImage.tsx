@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
-import { ActivityIndicator, ImageErrorEventData, ImageStyle, NativeSyntheticEvent, StyleProp, View } from 'react-native'
+import { ActivityIndicator, ImageErrorEventData, ImageStyle, NativeSyntheticEvent, StyleProp, View,Animated } from 'react-native'
 import { useAnimation } from '../hooks/useAnimation';
-import Animated from 'react-native-reanimated';
+
 
 interface Props {
     uri:string,
@@ -22,7 +22,7 @@ export const FadeInImage:FC <Props> = ({uri,style={}}) => {
     const onError=(err:NativeSyntheticEvent<ImageErrorEventData>)=>{
         setIsloading(false)
     }
-
+ 
 
   return (
     <View style={{

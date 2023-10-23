@@ -5,6 +5,7 @@ import { Image } from 'react-native'
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { usePokemonPaginate } from '../hooks/usePokemonPaginate';
 import { FlatList } from 'react-native';
+import { PokemonCard } from '../components';
 
 
 export const HomeScreen = () => {
@@ -17,21 +18,16 @@ export const HomeScreen = () => {
           style={styles.pokebolaBG}
         />
 
-        <Text
-        style={{
-          ...styles.title,
-          ...styles.globalMargin,
-          top:top+20,
-        }}
-        >
-            Pokedex
-        </Text>
-
         <FlatList
         
         data={simplePokemonList}
         keyExtractor={(pokemon)=>pokemon.id}
-        renderItem={({item})=><Text>{item.name}</Text>}
+        numColumns={2}
+        renderItem={
+          ({item})=>(
+            <PokemonCard pokemon={item}/>
+          )
+        }
         showsVerticalScrollIndicator={false}
 
       //infinite scroll
@@ -45,6 +41,21 @@ export const HomeScreen = () => {
         size={20}
         />)}
 
+        //HEADER
+        ListHeaderComponent={
+          (
+            <Text
+            style={{
+              ...styles.title,
+              ...styles.globalMargin,
+              top:top+20,
+              marginBottom:top+20,
+            }}
+            >
+                Pokedex
+            </Text>
+          )
+        }
         
         />
 
