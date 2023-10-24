@@ -7,6 +7,7 @@ import { FadeInImage } from './FadeInImage';
 import { StatisticsPokemon } from './index';
 
 
+
 interface Props {
     pokemon:PokemonFull
 }
