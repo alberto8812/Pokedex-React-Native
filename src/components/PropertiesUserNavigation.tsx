@@ -10,7 +10,7 @@ export const PropertiesUserNavigation = ({navigation}:DrawerContentComponentProp
         <View  style={styles.avatarContainer}>
             <Image
             source={{
-            uri:'https://as2.ftcdn.net/v2/jpg/02/59/38/43/1000_F_259384390_LZjy7LNM3zeLSXMILA0NphvmOzUQXSuj.jpg'
+            uri:'https://yt3.googleusercontent.com/EmcNYKoW2FDaWreuqsWiuZDukcgrweyUi1yHSn24wGpF-MqWRzbNwjDgtlrZUvQVZo2kK7gW=s900-c-k-c0x00ffffff-no-rj'
             }}
             style={styles.Avatar}
             />
@@ -18,18 +18,65 @@ export const PropertiesUserNavigation = ({navigation}:DrawerContentComponentProp
 
         <View style={styles.menucContainer}>
 
+        <TouchableOpacity
+             style={{...styles.menuBoton,flexDirection:'row'}}
+             onPress={() => navigation.navigate('UserConfiguration')}
+            >
+                <Icon
+                 name='home-outline'
+                 color="grey"
+                 size={25}
+                />
+                <Text style={{...styles.menuTexto,marginLeft:15}}>Home</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+             style={{...styles.menuBoton,flexDirection:'row'}}
+             onPress={() => navigation.navigate('UserConfiguration')}
+            >
+                <Icon
+                 name='heart-outline'
+                 color="grey"
+                 size={25}
+                />
+                <Text style={{...styles.menuTexto,marginLeft:15}}>Favorite</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+             style={{...styles.menuBoton,flexDirection:'row'}}
+             onPress={() => navigation.navigate('UserConfiguration')}
+            >
+                <Icon
+                 name='person-outline'
+                 color="grey"
+                 size={25}
+                />
+                <Text style={{...styles.menuTexto,marginLeft:15}}>User</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
              style={{...styles.menuBoton,flexDirection:'row'}}
              onPress={() => navigation.navigate('UserConfiguration')}
             >
                 <Icon
                  name='construct-outline'
-                 color="blue"
-                 size={30}
+                 color="grey"
+                 size={25}
                 />
-                <Text style={styles.menuTexto}>Ajustes</Text>
+                <Text style={{...styles.menuTexto,marginLeft:15}}>Settings</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity
+             style={{...styles.menuBoton,flexDirection:'row'}}
+             onPress={() => navigation.navigate('UserConfiguration')}
+            >
+                <Icon
+                 name='chatbubbles-outline'
+                 color="grey"
+                 size={25}
+                />
+                <Text style={{...styles.menuTexto,marginLeft:15}}>Help/PQR</Text>
+            </TouchableOpacity>
         </View>
     </DrawerContentScrollView>
   )
