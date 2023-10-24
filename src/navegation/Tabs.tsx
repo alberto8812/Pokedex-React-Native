@@ -1,10 +1,16 @@
 import React from 'react'
 import { Platform, Text, View } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MainNavegation } from './MainNavegation';
-import { SearchScreen } from '../screens';
+import { MainNavegation, RootStackParams } from './MainNavegation';
+import { PokemonScreen, SearchScreen } from '../screens';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StackSearchPokemon } from './StackSearch';
+
+
 const Tab = createBottomTabNavigator();
+
+
 
 export const Tabs = () => {
   return (
@@ -46,7 +52,7 @@ export const Tabs = () => {
         tabBarLabel:'Buscar',
         tabBarIcon:({color})=>(<Icon name='search-outline' color={color} size={20}/>)
     }}
-    name="SearchScreen" component={SearchScreen} />
+    name="SearchScreen" component={StackSearchPokemon} />
 
   </Tab.Navigator>
   )
