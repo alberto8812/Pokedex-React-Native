@@ -1,17 +1,33 @@
-import React from 'react'
-import { StyleSheet,View,TextInput, Platform } from 'react-native'
+import React, { FC, useEffect, useState } from 'react'
+import { StyleSheet,View,TextInput, Platform, ActivityIndicator, StyleProp, ViewStyle } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { usePokemonSearch } from '../hooks/usePokemonSearch';
+import { useDebounceValue } from '../hooks/useDebounceValue';
+
+interface Props{
+    style?:StyleProp<ViewStyle>,
+    onDebounce:(value:string)=>void
+}
+export const SearchInput:FC <Props> = ({style,onDebounce}) => {
+    const [textValue, settextValue] = useState('');
+    const {debounceValue}=useDebounceValue(textValue);
 
 
-export const SearchInput = () => {
+    useEffect(() => {
+        onDebounce(textValue)
+    }, [debounceValue])
+    
+
   return (
-    <View style={styles.container}>
+    <View style={{...style as any,...styles.container}}>
         <View style={{...styles.textBackground,top:(Platform.OS=='ios')?0:10}}>
             <TextInput
                 placeholder='buscar Pokemon'
                 style={styles.textImput}
                 autoCapitalize='none'
-                autoCorrect={false}           
+                autoCorrect={false}
+                value={textValue}
+                onChangeText={settextValue}     
             />
             <Icon
              name='search-outline'
@@ -32,6 +48,7 @@ const styles=StyleSheet.create({
 
     },
     textBackground:{
+        marginHorizontal:20,
         backgroundColor:'#F3F1F3',
         borderRadius:50,
         height:40,
