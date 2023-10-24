@@ -12,7 +12,7 @@ export const Tabs = () => {
         sceneContainerStyle={{
             //backgroundColor:'rba(255,255,255,0.95)',
             backgroundColor:'white',
-    
+           
         }}
         screenOptions={{
              tabBarActiveTintColor:'#5856D6',
@@ -28,8 +28,11 @@ export const Tabs = () => {
                 height:(Platform.OS=='ios')?80:60,
                 position:'absolute',
                 
-             }
+             },
+             headerShown:false
         }}
+
+
 
     >
     <Tab.Screen
